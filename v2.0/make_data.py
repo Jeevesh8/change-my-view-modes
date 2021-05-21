@@ -45,13 +45,13 @@ if __name__=="__main__":
     for elem in thread_ids_to_filenames.values():
         if j<args.test_sz:
             for filename in elem:
-                copyfile(filename, os.path.join(args.data_folder, args.save_folder, "test", filename.split('/')[-1]))
+                copyfile(filename, os.path.join(args.data_folder, args.save_folder, "test", filename.split('/')[-2]+'_'+filename.split('/')[-1]))
                 j+=1
         elif args.test_sz<=j<args.train_sz+args.test_sz:
             for filename in elem:
-                copyfile(filename, os.path.join(args.data_folder, args.save_folder, "train", filename.split('/')[-1]))
+                copyfile(filename, os.path.join(args.data_folder, args.save_folder, "train", filename.split('/')[-2]+'_'+filename.split('/')[-1]))
                 j+=1
         else:
             for filename in elem:                
-                copyfile(filename, os.path.join(args.data_folder, args.save_folder, "valid", filename.split('/')[-1]))
+                copyfile(filename, os.path.join(args.data_folder, args.save_folder, "valid", filename.split('/')[-2]+'_'+filename.split('/')[-1]))
                 j+=1
