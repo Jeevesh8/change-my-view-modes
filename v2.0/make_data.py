@@ -30,7 +30,7 @@ if __name__=="__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--train_sz", required=True, type=int, help="Number of threads to use for train set.")
     parser.add_argument("--test_sz", required=True, type=int, help="Number of threds in test set.")
-    parser.add_argument("--data_folder", requires=True, help="The folder that has negative/ and positive/ subfolders having threads.")
+    parser.add_argument("--data_folder", default=".", help="The folder that has negative/ and positive/ subfolders having threads.")
     parser.add_argument("--save_folder", default="data/", help="Folder to store final data.")
     args = parser.parse_args()
     
