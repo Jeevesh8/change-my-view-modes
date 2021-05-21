@@ -30,14 +30,14 @@ if __name__=="__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--train_sz", required=True, type=int, help="Number of threads to use for train set.")
     parser.add_argument("--test_sz", required=True, type=int, help="Number of threds in test set.")
-    parser.add_argument("--data_folder", default=".", help="The folder that has negative/ and positive/ subfolders having threads.")
+    parser.add_argument("--data_folder", default="./", help="The folder that has negative/ and positive/ subfolders having threads.")
     parser.add_argument("--save_folder", default="data/", help="Folder to store final data.")
     args = parser.parse_args()
     
     thread_ids_to_filenames = get_thread_ids_to_filenames(args.data_folder)
     
     for split in ["train", "test", "valid"]:
-        os.makedirs(os.path.join(args.data_folder, args.save_folder, split))
+        os.makedirs(os.path.join(args.data_folder, args.save_folder, split), exist_ok=True)
     
     j=0
     for elem in thread_ids_to_filenames.values():
