@@ -1,7 +1,7 @@
 #Script to first make OP-wise split of the AMPERSAND data and then choose train-test-valid set from it
 import argparse
 import os
-from shutil import copyfile
+from shutil import copyfile, rmtree
 
 from bs4 import BeautifulSoup
 
@@ -37,17 +37,19 @@ if __name__=="__main__":
     thread_ids_to_filenames = get_thread_ids_to_filenames(args.data_folder)
     
     for split in ["train", "test", "valid"]:
+        if os.path.isdir(os.path.join(args.data_folder, args.save_folder, split)):
+            rmtree(os.path.join(args.data_folder, args.save_folder, split))
         os.makedirs(os.path.join(args.data_folder, args.save_folder, split), exist_ok=True)
     
     j=0
     for elem in thread_ids_to_filenames.values():
-        if j<args.train_sz:
-            for filename in elem:
-                copyfile(filename, os.path.join(args.data_folder, args.save_folder, "train", filename.split('/')[-1]))
-                j+=1
-        elif args.train_sz<=j<args.train_sz+args.test_sz:
+        if j<args.test_sz:
             for filename in elem:
                 copyfile(filename, os.path.join(args.data_folder, args.save_folder, "test", filename.split('/')[-1]))
+                j+=1
+        elif args.test_sz<=j<args.train_sz+args.test_sz:
+            for filename in elem:
+                copyfile(filename, os.path.join(args.data_folder, args.save_folder, "train", filename.split('/')[-1]))
                 j+=1
         else:
             for filename in elem:                
