@@ -18,7 +18,7 @@ def get_thread_ids_to_filenames(root_folder="./v2.0/"):
                 thread_id = parsed_xml.find('thread')['ID']
                 if thread_id not in thread_ids_to_filenames.keys():
                     thread_ids_to_filenames[thread_id] = []
-                thread_ids_to_filenames[thread_id].append(filename[1:])
+                thread_ids_to_filenames[thread_id].append(filename)
 
     with open('./op_wise_split.txt', 'w+') as f:
         for v in thread_ids_to_filenames.values():
